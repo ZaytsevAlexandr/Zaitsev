@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Входные данные: координаты пяти точек
+x = [0.119, 0.208, 0.2841, 0.351, 0.4109]
+y = [0.38/0.119, 0.38*2/0.208, 0.38*3/0.2841, 0.38*4/0.351, 0.38*5/0.4109]
+
+# Построение графика
+fig, ax = plt.subplots()
+
+# Настройка осей
+ax.set_xlabel('t, s')  # Подпись оси X
+ax.set_ylabel('nl/t, m/s')  # Подпись оси Y
+ax.set_xlim(0, 0.5)  # Настройка масштаба оси X
+ax.set_ylim(2, 5.6)  # Настройка масштаба оси Y
+plt.grid(True) # Сетка
+
+# Построение точек
+ax.scatter(x, y, color='red', s=30)  # Настройка цвета и размера точек
+
+
+# Применение метода наименьших квадратов для нахождения прямой
+A = np.vstack((x, np.ones(len(x)))).T
+m, c = np.linalg.lstsq(A, y, rcond=None)[0]
+
+# Написание углового коэффициента прямой
+ax.text(0.001, 2.1, 'g = {:.2f}'.format(2*m), fontsize=15)
+ax.text(0.3,2.1,'Осциллограф', fontsize = 15)
+
+# Построение прямой
+x_plot = np.linspace(0, 6, 100)
+y_plot = m * x_plot + c
+ax.plot(x_plot, y_plot, color='blue')  # Настройка цвета прямой
+
+# Отображение графика
+plt.show()
