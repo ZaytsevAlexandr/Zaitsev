@@ -15,7 +15,7 @@ int main(){
         wordsAmount[word]++;
     }
     std::cout << "Words: " << words.size() << ", " << std::endl;
-    for (auto p: wordsAmount){
+    for (const auto& p: wordsAmount){
         std::cout << '\t' << p.first << ": " << p.second << std::endl;
     }
 }
