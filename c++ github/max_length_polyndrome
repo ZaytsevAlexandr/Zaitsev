@@ -1,0 +1,38 @@
+#include <string>
+#include <map>
+#include <iostream>
+
+unsigned max_palindrome(const std::string& str){
+    unsigned length_palindrome = 0;
+    std::map<char, unsigned> dict;
+
+    for (char c : str){
+        dict[c]++;
+    }
+
+    bool flag_for_odd_letter = true;
+
+    for (auto it = dict.begin(); it != dict.end(); it++){
+        if (it->second % 2 == 0){
+            length_palindrome += it->second;
+        }
+        if (flag_for_odd_letter){
+            if (it->second % 2 == 1){
+                length_palindrome += it->second;
+                flag_for_odd_letter = false;
+            }
+        }
+        else{
+            length_palindrome += it->second - 1;
+        }
+    }
+
+    return length_palindrome;
+}
+
+int main(){
+    std::string str;
+    std::cin >> str;
+    unsigned n = max_palindrome(str);
+    std::cout << n << std::endl;
+}
